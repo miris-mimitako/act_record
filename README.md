@@ -14,3 +14,4 @@ Please feel free to ask for comment.
 ### May 5, 2021
 Leaning about
 * connect mysql with python
+* insert method mysql with python
