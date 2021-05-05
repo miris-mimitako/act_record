@@ -15,3 +15,4 @@ Please feel free to ask for comment.
 Leaning about
 * connect mysql with python
 * insert method mysql with python
+* update method mysql with python
