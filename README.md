@@ -16,3 +16,5 @@ Leaning about
 * connect mysql with python
 * insert method mysql with python
 * update method mysql with python
+* dictionary: key search
+* dictionary: key pick up
