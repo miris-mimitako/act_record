@@ -42,8 +42,10 @@ class Sql_Generator():
         ## end for
 
         sql = self.s_column + " FROM " + self.s_from + " WHERE " + self.s_where + ";"
+        
+        return sql
+        
         print ("End: sql_search")
-
     ## end of sql_search
     
 ## end of class Sql_Generator
