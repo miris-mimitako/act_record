@@ -2,8 +2,33 @@
 
 ### this file is not completed coding.
 
-class Sql_Generator():
-    def sql_search(self, **kwargs):
+class Sql_Generator:
+
+    def __init__(self,sql_keys):
+        print ("Start: Sql_Generator / __init")
+
+        self.sql_keys = sql_keys #recieving dictionary
+
+        ## Open dictionary
+
+        #Where keys input
+        if self.sql_keys.get("s_where") != None:
+            self.s_where=str(self.sql_keys["s_where"])
+        ## end if
+
+        #column keys input
+        if self.sql_keys.get("s_column") != None:
+            self.s_where=str(self.sql_keys["s_column"])
+        ## end if
+
+        #from keys input
+        if self.sql_keys.get("s_from") != None:
+            self.s_where=str(self.sql_keys["s_from"])
+        ## end if
+
+        print ("End: Sql_Generator / __init")
+
+    def sql_search(self):
         #-------------------------------------------
         # This def is simple keyword serach
         # Must use dictionary method:
@@ -18,30 +43,28 @@ class Sql_Generator():
         # 
         #-------------------------------------------
         print ("start: sql_search")
-
         #Variation definition
         _column_key = ""
         sql = ""
         n = 0 
-        self.s_from = " FROM " + kwargs["s_from"]
-        self.s_column="SELECT "
-
-        #Where keys input
-        if kwargs.get("s_where") != None:
-            self.s_where=kwargs["s_where"]
-        ## end if
 
         #column keys input
-        for i in kwargs["s_column"]:
+        for i in self.s_where:
             if n > 1:
-                self.s_column += ", "
-            self.s_column = i
+                _column += ", "
             ## end if
-
+            _column += str(i)
             n += 1
         ## end for
 
-        sql = self.s_column + " FROM " + self.s_from + " WHERE " + self.s_where + ";"
+        self.s_from = " FROM " + self.s_from
+        self.s_column="SELECT " + self.s_column
+        if self.s_where != None:
+            self.s_where = " WHERE " + self.s_where
+        ## end if 
+
+
+        sql = self._column + self._from +  self._where + ";"
         
         return sql
         

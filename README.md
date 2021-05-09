@@ -11,6 +11,9 @@ Please feel free to ask for comment.
 
 
 ## my programming learning record
+
+### May 6, 2021
+* SQL: create def generator in python program
 ### May 5, 2021
 Leaning about
 * connect mysql with python
