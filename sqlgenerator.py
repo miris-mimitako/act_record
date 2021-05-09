@@ -13,17 +13,17 @@ class Sql_Generator:
 
         #Where keys input
         if self.sql_keys.get("s_where") != None:
-            self.s_where=str(self.sql_keys["s_where"])
+            self.s_where=self.sql_keys["s_where"]
         ## end if
 
         #column keys input
         if self.sql_keys.get("s_column") != None:
-            self.s_where=str(self.sql_keys["s_column"])
+            self.s_column=self.sql_keys["s_column"]
         ## end if
 
         #from keys input
         if self.sql_keys.get("s_from") != None:
-            self.s_where=str(self.sql_keys["s_from"])
+            self.s_from=self.sql_keys["s_from"]
         ## end if
 
         print ("End: Sql_Generator / __init")
@@ -48,23 +48,29 @@ class Sql_Generator:
         sql = ""
         n = 0 
 
-        #column keys input
-        for i in self.s_where:
-            if n > 1:
-                _column += ", "
-            ## end if
-            _column += str(i)
-            n += 1
-        ## end for
-
         self.s_from = " FROM " + self.s_from
-        self.s_column="SELECT " + self.s_column
+
+        # Colum may have list argument
+
+        if isinstance(self.s_column, list):
+            # s_column type is list
+            for index, item in enumerate(self.s_column):
+                if index > 0:
+                    _column_key += ", "
+                ## end if
+                _column_key += item
+            ## end for
+        else:
+            _column_key=self.s_column
+        ## end if
+
+        _column_key="SELECT " + _column_key
         if self.s_where != None:
             self.s_where = " WHERE " + self.s_where
         ## end if 
 
 
-        sql = self._column + self._from +  self._where + ";"
+        sql = _column_key + self.s_from +  self.s_where + ";"
         
         return sql
         
