@@ -2,6 +2,19 @@
 
 ### this file is not completed coding.
 
+'''
+This coding must use type of dictionary
+key: s_column
+key: s_from
+key: s_where
+dic_sql_generator={
+    s_column: 
+    s_from:
+    s_where:
+}
+'''
+
+
 class Sql_Generator:
 
     def __init__(self,sql_keys):
