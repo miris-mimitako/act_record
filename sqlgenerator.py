@@ -8,6 +8,7 @@ key: s_column---Table / query column name(s) (multiple method you must use list 
 key: s_table---Table name 
 key: s_where---search items
 key: s_value---column and value (You must use dictionary method. Multiple lines shall use values in list)
+Use following dictionary
 dic_sql_generator={
     #--- select method ---*
     s_column: 
@@ -101,7 +102,14 @@ class Sql_Generator:
     ## end of sql_search
     
     def sql_insert(self):
-        pass
+        sql = ""
+        n = 0 
+        self.s_table = "INSERT INTO " + self.s_table
+
+        
+
+        return sql
+
     ## end of sql_insert
 
     def __del__(self):
