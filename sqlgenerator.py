@@ -4,9 +4,9 @@
 
 '''
 This coding must use type of dictionary
-key: s_column
-key: s_from
-key: s_where
+key: s_column---Table / query column name(s) (multiple method you must use list in dictionary)
+key: s_from---Table name 
+key: s_where---search items
 dic_sql_generator={
     s_column: 
     s_from:
