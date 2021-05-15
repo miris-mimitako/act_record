@@ -7,13 +7,15 @@ This coding must use type of dictionary
 key: s_column---Table / query column name(s) (multiple method you must use list in dictionary)
 key: s_table---Table name 
 key: s_where---search items
+key: s_value---column and value (You must use dictionary method. Multiple lines shall use values in list)
 dic_sql_generator={
     #--- select method ---*
     s_column: 
     s_table:
     s_where:
     #--- insert method ---*
-    
+    s_table:
+    s_column_value: {column1: value1, column2: value2, ...} or {column1: [value1, value2,...], ...}
 }
 '''
 
@@ -40,6 +42,11 @@ class Sql_Generator:
         #from keys input
         if self.sql_keys.get("s_table") != None:
             self.s_table=self.sql_keys["s_table"]
+        ## end if
+
+        #column and value input
+        if self.sql_keys.get("s_column_value") != None:
+            self.s_column_value=self.sql_keys["s_column_value"]
         ## end if
 
         print ("End: Sql_Generator / __init")
@@ -96,6 +103,10 @@ class Sql_Generator:
     def sql_insert(self):
         pass
     ## end of sql_insert
+
+    def __del__(self):
+        print ("call deconstructor")
+    ## end of del
 
 ## end of class Sql_Generator
 
