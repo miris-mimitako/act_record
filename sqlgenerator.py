@@ -3,7 +3,7 @@
 ### this file is not completed coding.
 
 '''
-This coding must use type of dictionary
+This program must use type of dictionary
 key: s_column---Table / query column name(s) (multiple method you must use list in dictionary)
 key: s_table---Table name 
 key: s_where---search items
@@ -102,11 +102,36 @@ class Sql_Generator:
     ## end of sql_search
     
     def sql_insert(self):
+        # Initialize valiation
+        _columns ="("
+        _values ="("
         sql = ""
         n = 0 
+        flag_value = 0 # 1 = value has list type
+
+        # Input data
         self.s_table = "INSERT INTO " + self.s_table
 
-        
+        for index, item in enumerate(self.s_column_value):
+            if isinstance(self.s_column_value, list):
+                flag_value = 1
+                break
+            ## end if
+            n = index
+        ## end for
+
+        if flag_value == 0:
+            pass
+        else:
+            pass
+        ## end if
+
+
+
+        if index >0:
+            _columns += ", "
+            _values += ", "
+        ## end if
 
         return sql
 
