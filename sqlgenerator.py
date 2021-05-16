@@ -103,8 +103,8 @@ class Sql_Generator:
     
     def sql_insert(self):
         # Initialize valiation
-        _columns ="("
-        _values ="("
+        _columns =" ("
+        _values ="VALUES ("
         sql = ""
         n = 0 
         flag_value = 0 # 1 = value has list type
@@ -113,26 +113,55 @@ class Sql_Generator:
         self.s_table = "INSERT INTO " + self.s_table
 
         for index, item in enumerate(self.s_column_value):
-            if isinstance(self.s_column_value, list):
+            if isinstance(item.values(), list):
+                #s_column_value has list then flag 
                 flag_value = 1
                 break
             ## end if
-            n = index
         ## end for
 
         if flag_value == 0:
-            pass
+            for index, item_colums_key in enumerate(self.s_column_value.keys()):
+                if index > 0:
+                    _columns += ", " + item_colums_key
+                    _values += ", " + self.s_column_value.values() 
+                else:
+                    _columns += item_colums_key
+                    _values += self.s_column_value.values()
+                ## end if
+            ## end for
         else:
-            pass
+            for index, item_colums_key in enumerate(self.s_column_value.keys()):
+                if index > 0:
+                    _columns += ", " + item_colums_key
+                    _values += ", "
+
+                    if isinstance(self.s_column_value[item_colums_key].values(), list):
+                        for index_inner, item_value in enumerate(self.s_column_value[item_colums_key].values()):
+                            if index_inner > 0:
+                                _values += ", "
+                            ## end if
+                            _values += item
+                        ## end for
+                    ## end if
+                else:
+                    _columns += item_colums_key
+                    if isinstance(self.s_column_value[item_colums_key].values(), list):
+                        for index_inner, item_value in enumerate(self.s_column_value[item_colums_key].values()):
+                            if index_inner > 0:
+                                _values += ", "
+                            ## end if
+                            _values += item
+                        ## end for
+                    ## end if
+                ## end if
+            ## end for
         ## end if
 
-
-
-        if index >0:
-            _columns += ", "
-            _values += ", "
-        ## end if
-
+        _columns += ")"
+        _values += ")"
+        sql = self.s_table + _columns + _values + ";"
+        
         return sql
 
     ## end of sql_insert
