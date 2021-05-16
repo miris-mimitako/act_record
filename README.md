@@ -12,6 +12,9 @@ Please feel free to ask for comment.
 
 ## my programming learning record
 
+### May 16, 2021
+* Python: SQL generator modified.
+
 ### May 9. 2021
 * Python: SQL generator can do !!
 * Python: Learning Class method 
