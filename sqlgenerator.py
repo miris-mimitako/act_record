@@ -11,12 +11,12 @@ key: s_value---column and value (You must use dictionary method. Multiple lines 
 Use following dictionary
 dic_sql_generator={
     #--- select method ---*
-    s_column: 
-    s_table:
-    s_where:
+    "s_column": xxx,
+    "s_table": xxx,
+    "s_where": xxx
     #--- insert method ---*
-    s_table:
-    s_column_value: {column1: value1, column2: value2, ...} or {column1: [value1, value2,...], ...}
+    "s_table": xxx,
+    "s_column_value": {column1: value1, column2: value2, ...} or {column1: [value1, value2,...], ...}
 }
 '''
 
@@ -71,9 +71,7 @@ class Sql_Generator:
         _column_key = ""
         sql = ""
         n = 0 
-
         self.s_table = " FROM " + self.s_table
-
         # Colum may have list argument
 
         if isinstance(self.s_column, list):
@@ -112,8 +110,8 @@ class Sql_Generator:
         # Input data
         self.s_table = "INSERT INTO " + self.s_table
 
-        for index, item in enumerate(self.s_column_value):
-            if isinstance(item.values(), list):
+        for index, item in enumerate(self.s_column_value.values()):
+            if isinstance(item, list):
                 #s_column_value has list then flag 
                 flag_value = 1
                 break
@@ -124,10 +122,10 @@ class Sql_Generator:
             for index, item_colums_key in enumerate(self.s_column_value.keys()):
                 if index > 0:
                     _columns += ", " + item_colums_key
-                    _values += ", " + self.s_column_value.values() 
+                    _values += ", " + self.s_column_value[item_colums_key]
                 else:
                     _columns += item_colums_key
-                    _values += self.s_column_value.values()
+                    _values += self.s_column_value[item_colums_key]
                 ## end if
             ## end for
         else:
@@ -136,23 +134,27 @@ class Sql_Generator:
                     _columns += ", " + item_colums_key
                     _values += ", "
 
-                    if isinstance(self.s_column_value[item_colums_key].values(), list):
-                        for index_inner, item_value in enumerate(self.s_column_value[item_colums_key].values()):
+                    if isinstance(self.s_column_value[item_colums_key], list):
+                        for index_inner, item_value in enumerate(self.s_column_value[item_colums_key]):
                             if index_inner > 0:
                                 _values += ", "
                             ## end if
-                            _values += item
+                            _values += item_value
                         ## end for
+                    else:
+                        _values += self.s_column_value[item_colums_key]
                     ## end if
                 else:
                     _columns += item_colums_key
-                    if isinstance(self.s_column_value[item_colums_key].values(), list):
-                        for index_inner, item_value in enumerate(self.s_column_value[item_colums_key].values()):
+                    if isinstance(self.s_column_value[item_colums_key], list):
+                        for index_inner, item_value in enumerate(self.s_column_value[item_colums_key]):
                             if index_inner > 0:
                                 _values += ", "
                             ## end if
-                            _values += item
+                            _values += item_value
                         ## end for
+                    else:
+                        _values += self.s_column_value[item_colums_key]
                     ## end if
                 ## end if
             ## end for
@@ -161,7 +163,7 @@ class Sql_Generator:
         _columns += ")"
         _values += ")"
         sql = self.s_table + _columns + _values + ";"
-        
+
         return sql
 
     ## end of sql_insert
