@@ -129,6 +129,15 @@ class Sql_Generator:
                 ## end if
             ## end for
         else:
+            
+            """
+            s_columun_lenの値は複数のリストが利用されるケースが想定される。
+            Lenでリストの最大数を把握しながら、もし足りない要素が出てきた場合に最後の値で埋めるようにしなければならない
+            x=2,y=3,z=4のリストを持っている場合は、3週目以降xはその最大値を利用する。
+            yは4週目からyの最大値を利用することになる。
+            """
+
+            ## below code shall not use -- not work
             for index, item_colums_key in enumerate(self.s_column_value.keys()):
                 if index > 0:
                     _columns += ", " + item_colums_key
