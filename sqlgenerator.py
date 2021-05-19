@@ -27,7 +27,7 @@ class Sql_Generator:
         print ("Start: Sql_Generator / __init")
 
         self.sql_keys = sql_keys #recieving dictionary
-
+        self.s_column_value= [] #list define
         ## Open dictionary
 
         #Where keys input
@@ -47,7 +47,12 @@ class Sql_Generator:
 
         #column and value input
         if self.sql_keys.get("s_column_value") != None:
-            self.s_column_value=self.sql_keys["s_column_value"]
+            if isinstance(self.s_column, list):
+                self.s_column_value.extend(self.sql_keys["s_column_value"]) #add list
+            
+            else:
+                self.s_column_value.append(self.sql_keys["s_column_value"]) #add a value
+            ## end if
         ## end if
 
         print ("End: Sql_Generator / __init")
